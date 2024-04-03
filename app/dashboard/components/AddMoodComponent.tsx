@@ -35,15 +35,15 @@ const AddMoodComponent = () => {
           <span>awful</span>
         </div>
         <div>
-          <Image src={Emotion1} alt="" />
+          <Image src={Emotion6} alt="" />
           <span>angry</span>
         </div>
         <div>
-          <Image src={Emotion1} alt="" />
+          <Image src={Emotion7} alt="" />
           <span>depressed</span>
         </div>
         <div>
-          <Image src={Emotion1} alt="" />
+          <Image src={Emotion8} alt="" />
           <span>sad</span>
         </div>
       </div>
