@@ -11,7 +11,7 @@ const Home = () => {
         <h1 className="text-center text-4xl font-bold">
           Document your mood whenever
         </h1>
-        <div className="w-full overflow-hidden">
+        <div className="w-full mt-10 overflow-hidden">
           <Carousel />
         </div>
       </section>

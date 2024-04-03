@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/react-slick": "^0.23.13",
+    "dayjs": "^1.11.10",
     "mongoose": "^8.2.2",
     "next": "14.1.0",
     "next-auth": "^4.24.7",
