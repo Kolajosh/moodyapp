@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import img1 from "@public/assets/images/em1.png";
 import img2 from "@public/assets/images/em2.png";
+import img4 from "@public/assets/images/em4.png";
 import img3 from "@public/assets/images/em3.png";
 import img5 from "@public/assets/images/em5.png";
 import Slider from "react-slick";
@@ -19,7 +20,8 @@ const Carousel = () => {
         autoplay={true}
         speed={500}
         centerMode={true}
-        centerPadding={"100px"}
+        centerPadding={"200px"}
+        pauseOnHover={false}
         ease={"ease"}
         slidesToShow={3}
         slidesToScroll={1}
@@ -48,7 +50,7 @@ const Carousel = () => {
           <Image src={img3} width={300} height={300} alt="" />
         </div>
         <div>
-          <Image src={img5} width={300} height={300} alt="" />
+          <Image src={img4} width={300} height={300} alt="" />
         </div>
         <div>
           <Image src={img5} width={300} height={300} alt="" />

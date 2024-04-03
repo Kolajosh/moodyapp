@@ -12,25 +12,26 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = () => {
   return (
-    <div className="bg-[#37004C] w-[90px] h-screen overflow-hidden">
-      <div className="flex flex-col h-full justify-between">
-        <div className="mt-10 space-y-10 mx-auto">
+    <div className="bg-[#37004C] w-[110px] h-screen overflow-hidden">
+      <div className="flex flex-col h-full justify-between py-10">
+        <div className="space-y-10 flex flex-col justify-center items-center text-center mx-auto">
+          <div className="text-sm font-semibold text-white">Moodboard</div>
           <div>
-            <Image src={Dashboard} alt="Chart" />
+            <Image src={Dashboard} width={25} alt="Chart" />
           </div>
           <div>
-            <Image src={Chart} alt="Chart" />
+            <Image src={Chart} width={25} alt="Chart" />
           </div>
           <div>
-            <Image src={Profile} alt="Profile" />
+            <Image src={Profile} width={25} alt="Profile" />
           </div>
           <div>
-            <Image src={Settings} alt="Settings" />
+            <Image src={Settings} width={25} alt="Settings" />
           </div>
         </div>
-        <div className="mx-auto mb-10">
+        <div className="mx-auto">
           <div>
-            <Image src={Logout} alt="Settings" />
+            <Image src={Logout} width={25} alt="Settings" />
           </div>
         </div>
       </div>
