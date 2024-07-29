@@ -1,22 +1,12 @@
-import Carousel from "@components/Carousel";
-import Navbar from "@components/Navbar";
+import { Home } from '@components/views/Homepage/Homepage';
+import { Metadata } from 'next';
 
-const Home = () => {
-  return (
-    <>
-      <div className="font-poppins">
-        <Navbar />
-      </div>
-      <section className="w-full flex-center mt-20 flex-col">
-        <h1 className="text-center text-4xl font-bold">
-          Document your mood whenever
-        </h1>
-        <div className="w-full mt-10 overflow-hidden">
-          <Carousel />
-        </div>
-      </section>
-    </>
-  );
+export const metadata: Metadata = {
+  title: 'Moodboard',
+  description: 'Mood',
 };
 
-export default Home;
+
+export default function HomePage() {
+  return <Home />;
+}

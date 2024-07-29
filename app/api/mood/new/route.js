@@ -13,8 +13,9 @@ export const POST = async (req) => {
     return new Response(JSON.stringify(newMood), { status: 200 });
   } catch (error) {
     console.log(error);
-    return new Response("Something went wrong, try again later", {
+    return new Response(JSON.stringify({ error: "Something went wrong, try again later" }), {
       status: 500,
+      headers: { 'Content-Type': 'application/json' }
     });
   }
 };

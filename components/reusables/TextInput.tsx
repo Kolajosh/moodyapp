@@ -5,7 +5,7 @@ import React, {
   ChangeEvent,
   FocusEvent,
 } from "react";
-import Preloader from "../utils/mics/Preloader";
+import Preloader from "../../utils/mics/Preloader";
 
 interface IconProps {
   active: boolean;
@@ -13,14 +13,14 @@ interface IconProps {
   preview: React.ReactNode;
 }
 
-interface TextAreaInputProps {
+interface TextInputProps {
   autoFocus?: boolean;
   containerVariant?: string;
   type?: string;
   name: string;
   label?: string;
-  handleChange: (event: ChangeEvent<HTMLTextAreaElement>) => void; // Corrected event type
-  handleBlur: (event: FocusEvent<HTMLTextAreaElement>) => void; // Corrected event type
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (event: FocusEvent<HTMLInputElement>) => void;
   value?: string;
   error?: string;
   hasError?: boolean;
@@ -34,7 +34,7 @@ interface TextAreaInputProps {
   isPin?: boolean;
 }
 
-export const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       autoFocus = false,
@@ -48,7 +48,7 @@ export const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>
       error,
       hasError = false,
       placeHolder = "Enter text",
-      variant = "text-black w-full text-lg px-5",
+      variant = "text-black w-full h-12 text-lg px-5",
       icon = {
         active: false,
         variant: "",
@@ -79,7 +79,7 @@ export const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>
             <label
               htmlFor={`input-${name}`}
               className={`text-sm mb-2.5
-                            ${isDisabled ? "text-gray-300" : "text-black"}`}
+                          ${isDisabled ? "text-gray-300" : "text-black"}`}
             >
               {label}
             </label>
@@ -106,27 +106,27 @@ export const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>
             </span>
           </div>
         )}
-        <textarea
-          rows={6}
+        <input
           ref={ref}
           name={name}
+          type={type}
           className={` 
-          focus:outline-none text-sm border border-[#858585] z-2 bg-[#ffffff] bg-opacity-10 ovtline-none placeholder:text-xs placeholder:text-[#939393] placeholder:pt-3 rounded-xl
-          ${icon?.active && "px-12"} 
-          ${
-            isDisabled
-              ? `cursor-not-allowed border-gray-100 bg-gray-50 placeholder:text-gray-300`
-              : "bg-lib-alat-gray-input placeholder:text-gray-300 border-lib-alat-gray-input-border"
-          }
-          ${
-            success &&
-            !hasError &&
-            "valid:border-[#3BB54A] focus:valid:border-[#3BB54A]"
-          }
-          ${hasError && "border-red-500 focus:border-red-500"}
-          ${variant}`}
+        focus:outline-none text-sm border border-[#858585] z-2 bg-[#ffffff] bg-opacity-10 ovtline-none placeholder:text-xs placeholder:text-[#939393] rounded-xl
+        ${icon?.active && "px-12"} 
+        ${
+          isDisabled
+            ? `cursor-not-allowed border-gray-100 bg-gray-50 placeholder:text-gray-300`
+            : "bg-lib-alat-gray-input placeholder:text-gray-300 border-lib-alat-gray-input-border"
+        }
+        ${
+          success &&
+          !hasError &&
+          "valid:border-[#3BB54A] focus:valid:border-[#3BB54A]"
+        }
+        ${hasError && "border-red-500 focus:border-red-500"}
+        ${variant}`}
           value={localValue}
-          onChange={(event: ChangeEvent<HTMLTextAreaElement>) => { // Corrected event type
+          onChange={(event) => {
             const re = /^[0-9\b]+$/;
             // if value is not blank, then test the regex
             if (

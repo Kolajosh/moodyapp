@@ -1,12 +1,12 @@
 import React from "react";
-import Emotion1 from "@public/assets/images/emotion1.png";
-import Emotion2 from "@public/assets/images/emotion2.png";
-import Emotion3 from "@public/assets/images/emotion3.png";
-import Emotion4 from "@public/assets/images/emotion4.png";
-import Emotion5 from "@public/assets/images/emotion5.png";
-import Emotion6 from "@public/assets/images/emotion6.png";
-import Emotion7 from "@public/assets/images/emotion7.png";
-import Emotion8 from "@public/assets/images/emotion8.png";
+import Emotion1 from "@assets/images/emotion1.png";
+import Emotion2 from "@assets/images/emotion2.png";
+import Emotion3 from "@assets/images/emotion3.png";
+import Emotion4 from "@assets/images/emotion4.png";
+import Emotion5 from "@assets/images/emotion5.png";
+import Emotion6 from "@assets/images/emotion6.png";
+import Emotion7 from "@assets/images/emotion7.png";
+import Emotion8 from "@assets/images/emotion8.png";
 import Image from "next/image";
 
 interface AddMoodComponentProps {
@@ -14,14 +14,17 @@ interface AddMoodComponentProps {
   setEmotion: (emotion: string) => void;
 }
 
-const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotion }) => {
+const AddMoodComponent: React.FC<AddMoodComponentProps> = ({
+  setModal,
+  setEmotion,
+}) => {
   return (
-    <div className="border border-[#D6B0E4] rounded-2xl p-5 space-y-6">
+    <div className="border border-[#D6B0E4] rounded-2xl p-5 space-y-4">
       <div className="text-lg font-medium text-center">
         Hello Kolawole, how are you today?
       </div>
       {/* <div className="w-full text-center grid grid-cols-2 md:grid-cols-6 gap-5"> */}
-      <div className="w-full flex-wrap flex justify-between text-center">
+      <div className="w-full flex-wrap flex justify-center gap-5 text-center">
         <div
           onClick={() => {
             setEmotion("rad");
@@ -29,7 +32,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotio
           }}
           className="cursor-pointer"
         >
-          <Image src={Emotion1} width={100} alt="" />
+          <Image src={Emotion1} width={75} alt="" />
           <span>Rad</span>
         </div>
         <div
@@ -39,7 +42,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotio
           }}
           className="cursor-pointer"
         >
-          <Image src={Emotion2} width={100} alt="" />
+          <Image src={Emotion2} width={75} alt="" />
           <span>Good</span>
         </div>
         <div
@@ -49,7 +52,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotio
           }}
           className="cursor-pointer"
         >
-          <Image src={Emotion3} width={100} alt="" />
+          <Image src={Emotion3} width={75} alt="" />
           <span>Meh</span>
         </div>
         <div
@@ -59,7 +62,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotio
           }}
           className="cursor-pointer"
         >
-          <Image src={Emotion4} width={100} alt="" />
+          <Image src={Emotion4} width={75} alt="" />
           <span>Bad</span>
         </div>
         <div
@@ -69,7 +72,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotio
           }}
           className="cursor-pointer"
         >
-          <Image src={Emotion5} width={100} alt="" />
+          <Image src={Emotion5} width={75} alt="" />
           <span>hehe</span>
         </div>
         <div
@@ -79,7 +82,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotio
           }}
           className="cursor-pointer"
         >
-          <Image src={Emotion6} width={100} alt="" />
+          <Image src={Emotion6} width={75} alt="" />
           <span>excited</span>
         </div>
         <div
@@ -89,7 +92,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotio
           }}
           className="cursor-pointer"
         >
-          <Image src={Emotion7} width={100} alt="" />
+          <Image src={Emotion7} width={75} alt="" />
           <span>sad</span>
         </div>
         <div
@@ -99,7 +102,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({ setModal, setEmotio
           }}
           className="cursor-pointer"
         >
-          <Image src={Emotion8} width={100} alt="" />
+          <Image src={Emotion8} width={75} alt="" />
           <span>goofy</span>
         </div>
       </div>

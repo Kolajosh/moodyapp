@@ -5,6 +5,7 @@ interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   title: string;
+  width: string;
 }
 
 const CenterModal: React.FC<ModalProps> = ({
@@ -12,6 +13,7 @@ const CenterModal: React.FC<ModalProps> = ({
   onClose,
   children,
   title,
+  width = "w-7/12"
 }) => {
   const [modalStyle, setModalStyle] = useState<string>("hidden");
 
@@ -31,7 +33,7 @@ const CenterModal: React.FC<ModalProps> = ({
     >
       <div className="flex items-center justify-center min-h-screen">
         <div className="fixed inset-0 bg-black opacity-50"></div>
-        <div className="relative bg-white rounded-lg w-7/12 p-8">
+        <div className={`relative bg-white rounded-lg ${width} p-8`}>
           <div className="flex justify-between items-center">
             <div className="text-xl font-medium">{title}</div>
             <button className="" onClick={onClose}>
