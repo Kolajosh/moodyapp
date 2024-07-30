@@ -15,7 +15,7 @@ const Calendar: React.FC<CalendarProps> = ({ events }) => {
    }
   return (
     <>
-      <div className="border border-[#D6B0E4] rounded-2xl p-5">
+      <div className="border border-[#a3a3a3] bg-white rounded-2xl p-5">
         <FullCalendar
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"

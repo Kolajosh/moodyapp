@@ -110,7 +110,7 @@ const Analytics = () => {
         <div className="">
           <Sidebar />
         </div>
-        <div className="w-full px-5 h-screen pb-10 overflow-scroll">
+        <div className="w-full bg-[#f1f1f1] px-5 h-screen pb-10 overflow-scroll">
           <div className="pt-10 pb-5">
             <div className="text-2xl font-medium">Analytics</div>
             <span className="text-sm font-light">

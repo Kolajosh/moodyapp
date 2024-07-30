@@ -19,7 +19,7 @@ const AddMoodComponent: React.FC<AddMoodComponentProps> = ({
   setEmotion,
 }) => {
   return (
-    <div className="border border-[#D6B0E4] rounded-2xl p-5 space-y-4">
+    <div className="border border-[#a3a3a3] bg-white rounded-2xl p-5 space-y-4">
       <div className="text-lg font-medium text-center">
         Hello Kolawole, how are you today?
       </div>

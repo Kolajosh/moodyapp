@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     <>
       <nav className="flex rounded-full mt-5 border mx-5 shadow-xl justify-between items-center px-10 py-5">
         <div className="font-bold text-md md:text-xl">Moodboard</div>
-        <div className="flex justify-center md:text-md text-xs font-medium items-center gap-5">
+        <div className="flex justify-center md:text-md text-sm font-medium items-center gap-5">
           <div>About</div>
           <div>Contact</div>
           <div>Partnership</div>

@@ -44,7 +44,7 @@ const MoodsComponent: React.FC<MoodComponentProps> = ({ moodData }) => {
   };
 
   return (
-    <div className="border border-[#D6B0E4] overflow-scroll rounded-2xl p-5 space-y-4">
+    <div className="border border-[#a3a3a3] bg-white  overflow-scroll rounded-2xl p-5 space-y-4">
       {moodData.length === 0 ? (
         <div className="flex flex-col gap-5 text-lg font-medium justify-center items-center">
           You have no moods recorded the last 7 days

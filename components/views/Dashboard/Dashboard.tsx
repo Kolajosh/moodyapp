@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
-import AddMoodComponent from "./components/AddMoodComponent"
+import AddMoodComponent from "./components/AddMoodComponent";
 import MoodsComponent from "./components/MoodsComponent";
 import Calendar from "@components/reusables/Calendar";
 import CenterModal from "@components/reusables/CenterModal";
@@ -165,7 +165,8 @@ const Dashboard = () => {
     },
   });
 
-  const { handleChange, handleSubmit, setFieldValue, values, resetForm } = formik;
+  const { handleChange, handleSubmit, setFieldValue, values, resetForm } =
+    formik;
 
   useEffect(() => {
     setFieldValue("mood", emotion);
@@ -206,21 +207,23 @@ const Dashboard = () => {
         <div className="">
           <Sidebar />
         </div>
-        <div className="w-full px-5 h-screen pb-10 overflow-scroll">
+        <div className="w-full bg-[#f1f1f1] px-5 h-screen pb-10 overflow-scroll">
           <div className="pt-10 pb-5">
             <div className="text-2xl font-medium">Dashboard</div>
             <span className="text-sm font-light">
               {dayjs().format("DD MMMM YYYY")}
             </span>
           </div>
-          <div className="">
-            <AddMoodComponent setModal={setModal} setEmotion={setEmotion} />
-          </div>
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-            <div>
-              <MoodsComponent moodData={last7DaysData} />
+          <div className="w-full h-[90%] grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+            <div className=" space-y-5">
+              <div className="">
+                <AddMoodComponent setModal={setModal} setEmotion={setEmotion} />
+              </div>
+              <div>
+                <MoodsComponent moodData={last7DaysData} />
+              </div>
             </div>
-            <div>
+            <div className="">
               <Calendar events={events} />
             </div>
           </div>

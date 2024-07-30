@@ -5,7 +5,7 @@ interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   title: string;
-  width: string;
+  width?: string;
 }
 
 const CenterModal: React.FC<ModalProps> = ({

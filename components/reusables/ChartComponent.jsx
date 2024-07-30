@@ -122,7 +122,7 @@ const ChartComponent = ({ formattedData }) => {
   };
 
   return (
-    <div className="p-5 w-full border rounded-xl">
+    <div className="p-5 w-full border border-[#a3a3a3] bg-white rounded-xl">
       <div className="flex items-center justify-around">
         <div>
           <div className="mb-3">
