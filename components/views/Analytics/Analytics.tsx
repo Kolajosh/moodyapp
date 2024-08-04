@@ -1,57 +1,37 @@
 "use client";
 
 import Sidebar from "@components/reusables/Sidebar";
-import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { ToastNotify } from "@components/reusables/ToastNotify";
 import PageLoader from "@components/reusables/PageLoader";
 import ChartComponent from "@components/reusables/ChartComponent";
-import { getPreviousWeekDates, organizeDataForChart } from "@utils/libs/index";
+import useDashboardRequests from "@utils/hooks/dashboard/useDashboardRequests";
+import Recommendations from "./components/Recommendations";
+
+type mood = {
+  emotion: string;
+  emotionIconUnicode: string;
+  mood: string;
+  note: string;
+  timeStamp: Date;
+  __v: number;
+  _id: string;
+};
 
 const Analytics = () => {
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const { startOfLastWeek, endOfLastWeek } = getPreviousWeekDates();
+  const { getAllMoods, response, loading } = useDashboardRequests();
 
-  type mood = {
-    emotion: string;
-    emotionIconUnicode: string;
-    mood: string;
-    note: string;
-    timeStamp: Date;
-    __v: number;
-    _id: string;
-  };
-
-  const [moodData, setMoodData] = React.useState<mood[]>([]);
-  const { data: session } = useSession();
-
-  const organizedChartData = organizeDataForChart(moodData);
-
-  const getAllMoods = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`api/mood?startDate=${startOfLastWeek}&endDate=${endOfLastWeek}`, {
-      // const response = await fetch(`api/mood`, {
-        method: "GET",
-      });
-
-      if (response?.ok) {
-        setMoodData(await response?.json());
-      }
-    } catch (error) {
-      ToastNotify({
-        type: "error",
-        message: "Something went wrong",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [moodData, setMoodData] = useState<mood[]>([]);
 
   useEffect(() => {
     getAllMoods();
   }, []);
+
+  useEffect(() => {
+    if (response) {
+      setMoodData(response?.data);
+    }
+  }, [response]);
 
   const groupedData = moodData?.reduce((acc: any, currentValue) => {
     const date = dayjs(currentValue.timeStamp).format("YYYY-MM-DD");
@@ -66,10 +46,8 @@ const Analytics = () => {
     return acc;
   }, []);
 
-  console.log(groupedData);
-
   // Step 1: Transform the array into an object with mood counts for each date
-  const moodCountsByDate = groupedData.reduce((acc: any, { date, items }) => {
+  const moodCountsByDate = groupedData?.reduce((acc: any, { date, items }) => {
     const moodCounts = items?.reduce((counts: any, { mood }) => {
       counts[mood] = (counts[mood] || 0) + 1;
       return counts;
@@ -80,7 +58,7 @@ const Analytics = () => {
   }, {});
 
   // Step 2: Map over the object to create the desired array format
-  const formattedData = Object.entries(moodCountsByDate).map(
+  const formattedData = Object?.entries(moodCountsByDate).map(
     ([date, moodCounts]) => {
       const totalMoods = Object.values(moodCounts).reduce(
         (sum: any, count) => sum + count,
@@ -119,6 +97,9 @@ const Analytics = () => {
           </div>
           <div>
             <ChartComponent formattedData={formattedData} />
+          </div>
+          <div className="mt-5">
+            <Recommendations />
           </div>
         </div>
       </div>

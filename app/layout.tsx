@@ -12,7 +12,6 @@ import { SnackbarProvider } from "notistack";
 //   description: "Document your mood",
 // };
 
-const notistackRef = React.createRef();
 // const onClickDismiss = key => () => notistackRef.current.closeSnackbar(key);
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

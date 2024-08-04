@@ -1,4 +1,20 @@
-export const emotionsList = {
+export interface Emotion {
+  title: string;
+  icon: string;
+}
+
+export interface EmotionsList {
+  rad: Emotion[];
+  good: Emotion[];
+  meh: Emotion[];
+  bad: Emotion[];
+  hehe: Emotion[];
+  sad: Emotion[];
+  goofy: Emotion[];
+  excited: Emotion[];
+}
+
+export const emotionsList: EmotionsList = {
   rad: [
     { title: "Thrilled", icon: "\u2605" },
     { title: "Ecstatic", icon: "\ud83d\ude0e" },
@@ -176,3 +192,5 @@ export const emotionsList = {
     { title: "Blissful", icon: "\ud83d\ude01" },
   ],
 };
+
+export type EmotionCategory = keyof EmotionsList;

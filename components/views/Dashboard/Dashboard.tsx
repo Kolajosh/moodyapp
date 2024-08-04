@@ -2,7 +2,7 @@
 
 import Sidebar from "@components/reusables/Sidebar";
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import AddMoodComponent from "./components/AddMoodComponent";
@@ -10,65 +10,62 @@ import MoodsComponent from "./components/MoodsComponent";
 import Calendar from "@components/reusables/Calendar";
 import CenterModal from "@components/reusables/CenterModal";
 import { TextAreaInput } from "@components/reusables/TextAreaInput";
-import { emotionsList } from "./components/constants";
 import { useFormik } from "formik";
-import { ToastNotify } from "@components/reusables/ToastNotify";
 import PageLoader from "@components/reusables/PageLoader";
-import { organizeDataForChart } from "@utils/libs/index";
-import { ToastContainer } from "react-toastify";
-// import SnackBar from "@components/SnackBar";
-import useSnackBar from "@components/reusables/SnackBar";
+import useDashboardRequests from "@utils/hooks/dashboard/useDashboardRequests";
+import { emotionsList, Emotion, EmotionCategory } from './components/constants';
+
+interface mood {
+  emotion: string;
+  emotionIconUnicode: string;
+  mood: string;
+  note: string;
+  timeStamp: Date;
+  __v: number;
+  _id: string;
+}
+
+interface Creator {
+  _id: string;
+  email: string;
+  userName: string;
+  image: string;
+  __v: number;
+}
+
+interface Item {
+  _id: string;
+  creator: Creator;
+  mood: string;
+  emotion: string;
+  emotionIconUnicode: string;
+  note: string;
+  timeStamp: string;
+  __v: number;
+}
+
+interface Entry {
+  date: string;
+  items: Item[];
+}
 
 dayjs.extend(isBetween);
 
 const Dashboard = () => {
   const [modal, setModal] = React.useState<boolean>(false);
   const [emotion, setEmotion] = React.useState<string>("");
-  const [loading, setLoading] = React.useState<boolean>(false);
-
-  const { SnackBar } = useSnackBar();
-
-  type mood = {
-    emotion: string;
-    emotionIconUnicode: string;
-    mood: string;
-    note: string;
-    timeStamp: Date;
-    __v: number;
-    _id: string;
-  };
-
-  interface Creator {
-    _id: string;
-    email: string;
-    userName: string;
-    image: string;
-    __v: number;
-  }
-
-  interface Item {
-    _id: string;
-    creator: Creator;
-    mood: string;
-    emotion: string;
-    emotionIconUnicode: string;
-    note: string;
-    timeStamp: string;
-    __v: number;
-  }
-
-  interface Entry {
-    date: string;
-    items: Item[];
-  }
-
   const [moodData, setMoodData] = React.useState<mood[]>([]);
+
+  const { addNewMood, createMoodResponse, getAllMoods, response, loading } =
+    useDashboardRequests();
   const { data: session } = useSession();
 
+  // this function here will filter out the last 6 days from the data gotten from the backend
   const getLast7DaysData = (data: Entry[]): Entry[] => {
     // Calculate the start date (7 days ago) and the end date (today)
     const today = dayjs();
-    const startDate = today.subtract(6, "day"); // Start 6 days ago to include today
+    // Start 6 days ago to include today
+    const startDate = today.subtract(6, "day");
 
     // Filter data to include only items from the last 7 days including today
     const last7DaysData = data?.filter((entry) => {
@@ -79,37 +76,16 @@ const Dashboard = () => {
     return last7DaysData;
   };
 
-  const organizedChartData = organizeDataForChart(moodData);
-
+  // this function just deals with parsing string code to their corresponding emojis
   const validateAndConvertToEmoji = (iconID: string) => {
     // Validate that iconID is a valid hexadecimal number
     const parsedIconID = parseInt(iconID, 16);
     if (isNaN(parsedIconID)) {
-      return iconID; // Return an empty string or a default emoji
+      // Return an empty string or a default emoji
+      return iconID;
     }
     // Convert valid iconID to emoji
     return String.fromCodePoint(parsedIconID);
-  };
-
-  const getAllMoods = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("api/mood", {
-        method: "GET",
-      });
-
-      if (response?.ok) {
-        setMoodData(await response?.json());
-      }
-    } catch (error: any) {
-      SnackBar({
-        type: "error",
-        message: error.message,
-        position: "top-right",
-      });
-    } finally {
-      setLoading(false);
-    }
   };
 
   const formik = useFormik({
@@ -117,56 +93,41 @@ const Dashboard = () => {
       userId: "",
       emotionIconUnicode: "",
       note: "",
-      mood: emotion,
+      mood: "",
       emotion: "",
     },
 
     onSubmit: async (values) => {
       try {
-        setLoading(true);
-        const response = await fetch("api/mood/new", {
-          method: "POST",
-          body: JSON.stringify({
-            userId: values?.userId,
-            emotionIconUnicode: values?.emotionIconUnicode,
-            note: values?.note,
-            mood: values?.mood,
-            emotion: values?.emotion,
-            timeStamp: dayjs().toISOString(),
-          }),
+        addNewMood({
+          userId: values?.userId,
+          emotionIconUnicode: values?.emotionIconUnicode,
+          note: values?.note,
+          mood: values?.mood,
+          emotion: values?.emotion,
+          timeStamp: dayjs().toISOString(),
         });
-
-        if (response?.ok) {
-          setModal(false);
-          resetForm();
-
-          SnackBar({
-            type: "success",
-            message: "Mood Added successfully",
-            position: "top-right",
-          });
-
-          getAllMoods();
-        } else {
-          console.log(response);
-
-          throw new Error(response.statusText);
-        }
-      } catch (error: any) {
+      } catch (error) {
         console.log(error);
-        SnackBar({
-          type: "error",
-          message: error.message,
-          position: "top-right",
-        });
-      } finally {
-        setLoading(false);
       }
     },
   });
 
   const { handleChange, handleSubmit, setFieldValue, values, resetForm } =
     formik;
+
+  useEffect(() => {
+    if (response) {
+      setMoodData(response?.data);
+    }
+  }, [response]);
+
+  useEffect(() => {
+    if (createMoodResponse?.status === 200) {
+      setModal(false);
+      resetForm();
+    }
+  }, [createMoodResponse]);
 
   useEffect(() => {
     setFieldValue("mood", emotion);
@@ -185,6 +146,7 @@ const Dashboard = () => {
     date: dayjs(x?.timeStamp).format("YYYY-MM-DD"),
   }));
 
+  // group all the moods data by date
   const groupedData = moodData?.reduce((acc: any, currentValue) => {
     const date = dayjs(currentValue.timeStamp).format("YYYY-MM-DD");
     const existingGroup = acc.find((group: any) => group.date === date);
@@ -243,7 +205,7 @@ const Dashboard = () => {
             </div>
             <div>
               <div className="w-full flex justify-start flex-wrap gap-2 items-center">
-                {emotionsList?.[emotion]?.map((x: any, index: number) => (
+                {emotionsList?.[emotion]?.map((x: Emotion, index: number) => (
                   <div
                     key={index}
                     className={`space-y-2 cursor-pointer p-2 ${

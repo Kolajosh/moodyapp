@@ -68,9 +68,7 @@ export const TextAreaInput = forwardRef<
     const [localValue, setLocalValue] = useState<string>("");
 
     useLayoutEffect(() => {
-      if (value !== "") {
-        setLocalValue(value);
-      }
+      setLocalValue(value);
     }, [value]);
 
     const validationFulfilled = value !== "" && success;

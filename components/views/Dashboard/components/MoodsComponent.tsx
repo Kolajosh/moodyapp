@@ -26,8 +26,8 @@ const MoodsComponent: React.FC<MoodComponentProps> = ({ moodData }) => {
       prevIndex === 0 ? moodData.length - 1 : prevIndex - 1
     );
   };
-
-  const currentItem = moodData[currentIndex];
+  
+  const currentItem = moodData?.[currentIndex];
 
   const formatDate = (date: string) => {
     const moodDate = dayjs(date);
@@ -45,7 +45,7 @@ const MoodsComponent: React.FC<MoodComponentProps> = ({ moodData }) => {
 
   return (
     <div className="border border-[#a3a3a3] bg-white  overflow-scroll rounded-2xl p-5 space-y-4">
-      {moodData.length === 0 ? (
+      {moodData?.length === 0 ? (
         <div className="flex flex-col gap-5 text-lg font-medium justify-center items-center">
           You have no moods recorded the last 7 days
           <span className="text-center text-md">
@@ -63,7 +63,7 @@ const MoodsComponent: React.FC<MoodComponentProps> = ({ moodData }) => {
             <button
               className="text-lg font-bold"
               onClick={handlePrev}
-              disabled={moodData.length === 1}
+              disabled={moodData?.length === 1}
             >
               {"<"}
             </button>
@@ -73,7 +73,7 @@ const MoodsComponent: React.FC<MoodComponentProps> = ({ moodData }) => {
             <button
               className="text-lg font-bold"
               onClick={handleNext}
-              disabled={moodData.length === 1}
+              disabled={moodData?.length === 1}
             >
               {">"}
             </button>
